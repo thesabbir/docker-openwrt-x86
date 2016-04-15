@@ -1,40 +1,13 @@
 #!/bin/bash
 
 release=$1
+version=$2
+imagename=openwrt-$version-x86-generic-Generic-rootfs.tar.gz
 
-wget https://github.com/m-creations/openwrt/releases/download/$release/openwrt-$release-x86-64-rootfs.tar.gz
+echo "Buiding image for $release/$version"
 
-mv -f openwrt-$release-x86-64-rootfs.tar.gz image/
+wget https://downloads.openwrt.org/$release/$version/x86/generic/$imagename
+mv -f openwrt-$version-x86-generic-Generic-rootfs.tar.gz image/openwrt-x86-rootfs.tar.gz
 
-rm -rf image/tmp
-
-mkdir image/tmp
-
-tar xzv -C image/tmp -f image/openwrt-$release-x86-64-rootfs.tar.gz
-
-rm image/tmp/lib/modules/*/*
-
-cat <<EOF>> image/tmp/root/.bashrc
-source /etc/profile
-
-alias ll='ls -al'
-alias po=popd
-alias pu=pushd
-alias md=mkdir
-EOF
-
-rm image/openwrt-x86-64-rootfs.tar.gz
-
-tar czv -C image/tmp -f image/openwrt-x86-64-rootfs.tar.gz .
-
-rm -rf image/tmp/
-
-docker build -t mcreations/openwrt-x64:$release .
-
-docker run -it --rm mcreations/openwrt-x64:$release opkg update
-
-git add -u
-
-git commit -m "Updating rootfs to release $release"
-
-git tag -f -m "Tagging $release" -a $release
+docker build -t thesabbir/openwrt-x86:$release .
+docker run -it --rm thesabbir/openwrt-x86:$release opkg update
