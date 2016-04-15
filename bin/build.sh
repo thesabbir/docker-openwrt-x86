@@ -5,7 +5,7 @@ version=$2
 imagename=openwrt-$version-x86-generic-Generic-rootfs.tar.gz
 
 wget https://downloads.openwrt.org/$release/$version/x86/generic/$imagename
-mv -f openwrt-$version-x86-generic-Generic-rootfs.tar.gz image/$imagename
+mv -f openwrt-$version-x86-generic-Generic-rootfs.tar.gz image/openwrt-x86-rootfs.tar.gz
 
 docker build -t thesabbir/openwrt-x86:$release .
 

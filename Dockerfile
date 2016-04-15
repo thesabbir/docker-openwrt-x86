@@ -5,7 +5,7 @@ MAINTAINER Sabbir Ahmed <mail@thesabbir.com>
 
 CMD ["/bin/ash"]
 
-ADD image/openwrt-x86-64-rootfs.tar.gz /
+ADD image/openwrt-x86-rootfs.tar.gz /
 ADD image/root /
 
 RUN echo "4" > /tmp/debug_level &&\
