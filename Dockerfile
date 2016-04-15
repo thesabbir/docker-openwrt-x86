@@ -1,9 +1,9 @@
-## -*- docker-image-name: "mcreations/openwrt-x64" -*-
+## -*- docker-image-name: "thesabbir/openwrt-x86" -*-
 
 FROM scratch
-MAINTAINER Kambiz Darabi <darabi@m-creations.net>
+MAINTAINER Sabbir Ahmed <mail@thesabbir.com>
 
-CMD ["/bin/bash"]
+CMD ["/bin/ash"]
 
 ADD image/openwrt-x86-64-rootfs.tar.gz /
 ADD image/root /
